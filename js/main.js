@@ -2,6 +2,7 @@ import Shark from "./shark.mjs";
 
 const tigerShark = new Shark("grey", 7, 6, 3);
 console.log(tigerShark);
+console.log(Shark.hasLung);
 
 const swimAction = document.getElementById("swimBtn");
 const attackAction = document.getElementById("attackBtn");
