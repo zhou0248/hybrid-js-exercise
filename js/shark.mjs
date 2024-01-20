@@ -6,11 +6,17 @@ class Shark extends Fish {
 
   constructor(_color, _numFins, _speed, _length) {
     super(_color, _numFins);
-
     this._color = this.color;
     this._numberOfFins = this.numberOfFins;
-    this.speed = _speed;
-    this.length = _length;
+    if (_speed <= 0) throw Error("Speed must be a positive number");
+    else {
+      this.speed = _speed;
+      this.OriginalSpeed = _speed;
+    }
+    if (_length <= 0) throw Error("Length must be a positive number");
+    else {
+      this.length = _length;
+    }
     this.hungry = this.isHungry;
     this.tired = this.isTired;
   }
@@ -20,46 +26,59 @@ class Shark extends Fish {
   }
 
   get isTired() {
-    return this.energy <= 4;
+    return this.energy <= 3;
   }
 
   static hasLung = false;
 
   chase() {
-    if (!this.isTired) {
+    if (this.isTired) {
+      console.log("The shark is too tired to swim; it needs to rest.");
+    } else {
       this.isHungry
-        ? console.log(`The shark is chasing its prey at speed ${this.speed}.`)
+        ? console.log(
+            `The shark is chasing its prey at a speed of ${this.speed}.`
+          )
         : console.log(
-            `The shark is swimming at speed ${this.speed}, searching for its next prey.`
+            `The shark is swimming at a speed of ${this.speed}, searching for its next prey.`
           );
       this.swim(this.speed);
-      this.energy -= 2;
+      this.energy--;
+    }
+  }
+
+  speedup() {
+    if (this.isTired) {
+      console.log("The shark is too tired to speed up; it needs to rest.");
     } else {
-      console.log("The shark is too tired to swim; it needs to rest.");
+      this.speed += 2;
+      this.energy -= 2;
+      console.log(`The shark is speeding up.`);
     }
   }
 
   attack() {
-    if (!this.isTired) {
-      if (this.#stomachEmpty) {
-        if (this.speed > 5) {
-          console.log("The shark caught its prey; it's no longer hungry.");
-          this.#stomachEmpty = false;
-          this.energy--;
-        } else {
-          console.log(
-            "The shark didn't catch it's prey; now it's hungry and tired."
-          );
-          this.tired = true;
-        }
+    if (this.isTired) {
+      console.log(
+        "The shark doesn't have the energy to attack; it needs to rest."
+      );
+      return;
+    }
+
+    if (this.isHungry) {
+      if (this.speed > 5) {
+        console.log("The shark caught its prey; it's no longer hungry.");
+        this.#stomachEmpty = false;
+        this.energy--;
       } else {
         console.log(
-          "The shark is not hungry right now; it doesn't want to attack."
+          "The shark didn't catch it's prey; now it's hungry and upset."
         );
+        this.energy > 5 ? (this.energy -= 3) : (this.energy -= 2);
       }
     } else {
       console.log(
-        "The shark doesn't have the energy to attack; it needs to rest."
+        "The shark is not hungry right now; it doesn't want to attack."
       );
     }
   }
@@ -67,7 +86,9 @@ class Shark extends Fish {
   rest() {
     this.energy <= 6 ? (this.energy += 4) : (this.energy = 10);
     this.#stomachEmpty = true;
-    console.log("The shark is rested, and it feels hungry now.");
+    this.speed = this.OriginalSpeed;
+
+    console.log("The shark got some rest, and it feels hungry now.");
   }
 }
 
