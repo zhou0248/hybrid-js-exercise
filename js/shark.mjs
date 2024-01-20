@@ -8,13 +8,16 @@ class Shark extends Fish {
     super(_color, _numFins);
     this._color = this.color;
     this._numberOfFins = this.numberOfFins;
+
     if (_speed <= 0) throw Error("Speed must be a positive number");
     else {
       this.speed = _speed;
       this.OriginalSpeed = _speed;
     }
-    if (_length <= 0) throw Error("Length must be a positive number");
-    else {
+    if (isNaN(_length)) throw Error("Length must be a number");
+    else if (_length <= 0) {
+      throw Error("Length must be a positive number");
+    } else {
       this.length = _length;
     }
     this.hungry = this.isHungry;
@@ -26,7 +29,7 @@ class Shark extends Fish {
   }
 
   get isTired() {
-    return this.energy <= 3;
+    return this.energy < 3;
   }
 
   static hasLung = false;
@@ -50,17 +53,25 @@ class Shark extends Fish {
   speedup() {
     if (this.isTired) {
       console.log("The shark is too tired to speed up; it needs to rest.");
-    } else {
+      return;
+    }
+    if (this.isHungry) {
       this.speed += 2;
       this.energy -= 2;
-      console.log(`The shark is speeding up.`);
+      console.log(`The shark is speeding up to catch its prey.`);
+    } else {
+      this.speed++;
+      this.energy--;
+      console.log(
+        `The shark is trying its best to speed up, but its stomach is full.`
+      );
     }
   }
 
   attack() {
     if (this.isTired) {
       console.log(
-        "The shark doesn't have the energy to attack; it needs to rest."
+        "The shark doesn't have the energy to attack; it needs some rest."
       );
       return;
     }

@@ -1,6 +1,6 @@
 import Shark from "./shark.mjs";
 
-const tigerShark = new Shark("grey", 7, 5, 4);
+const tigerShark = new Shark("grey", 7, 5, 3);
 
 console.log(tigerShark);
 console.log(`Does the shark have a lung? ${Shark.hasLung}`);
@@ -23,10 +23,10 @@ if (tigerShark.speed > 5) {
 }
 
 tigerShark.isHungry
-  ? console.log("The shark is hungry and wants to hunt.")
+  ? console.log("The shark feels hungry and wants to hunt.")
   : console.log("The shark is not hungry.");
 
-console.log(`Its energy level is ${tigerShark.energy}.`);
+console.log(`It has an energy level of ${tigerShark.energy}.`);
 tigerShark.isTired
   ? console.log("It's tired.")
   : console.log("It's ready to swim around.");
