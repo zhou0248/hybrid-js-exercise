@@ -26,7 +26,7 @@ class Fish {
 export default Fish;
 
 //Example usage of the class
-let jaws = new Fish("grey", 3);
-console.log(jaws.color);
-console.log(jaws.numberOfFins);
-jaws.swim(8);
+// let jaws = new Fish("grey", 3);
+// console.log(jaws.color);
+// console.log(jaws.numberOfFins);
+// jaws.swim(8);
