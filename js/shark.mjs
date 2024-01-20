@@ -72,10 +72,10 @@ class Shark extends Fish {
 }
 
 export default Shark;
-let hammerhead = new Shark("grey", 5, 8, 6);
-console.log(hammerhead);
-hammerhead.chase();
-hammerhead.attack();
-hammerhead.chase();
-hammerhead.attack();
-hammerhead.rest();
+// let hammerhead = new Shark("grey", 5, 8, 6);
+// console.log(hammerhead);
+// hammerhead.chase();
+// hammerhead.attack();
+// hammerhead.chase();
+// hammerhead.attack();
+// hammerhead.rest();
